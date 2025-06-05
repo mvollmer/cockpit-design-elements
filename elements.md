@@ -13,11 +13,14 @@ easier to use than on the command line.
 
 For example, for networking there are both "bridges" and "teams" and
 Cockpit does not make a choice between them.  It presents "bridges"
-and "teams" equally, although one could argue that the OS really
-should only have one way implementing this functionality.
+and "teams" equally.  Cockpit says "LVM2" and "Stratis" and "xfs" and
+"btrfs" in its UI.
 
-But Linux is not like that, and Cockpit by itself does not try to
-change it. It is not a goal of Cockpit to "drain the swamp".
+One could argue that the OS really should only have one way of
+implementing bridging functionality, and only one all-powerful volume
+manager filesystem.  But Linux is not like that, and Cockpit by itself
+does not try to change it. It is not a goal of Cockpit to "drain the
+swamp".
 
 ### Guided and Non-Guided
 
