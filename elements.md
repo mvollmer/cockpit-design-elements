@@ -53,6 +53,30 @@ command line.
 Cockpit makes it obvious when the user is leaving the "beaten path" by
 keeping the non-guided parts separate, somehow.
 
+### SI vs IEC Unit prefixes
+
+Cockpit uses the "human" SI unit prefixes "k", "M", "G", ... in
+preference to the "computer" IEC unit prefixes "ki", "Mi", "Gi", ...
+
+Cockpit might show numbers with either of the prefixes, and we might
+change our preferences, but Cockpit will always use SI and IEC
+correctly.  The "M" prefix will always mean a factor of 1000000, and
+never 1048576.
+
+Size of storage devices, network speeds, etc are shown with SI
+prefixes. Amounts of RAM are shown with IEC prefixes. When space is
+ample, a quantity should be shown with both SI and IEC prefixes and
+the exact number without any prefix.  This is done to remove any
+doubts over whether Cockpit gets the unit prefixes correct or not, and
+to give the exact number without any of the rounding that Cockpit does
+in other places to save space.
+
+For example, disk capacity is shown as
+
+    2.15 GB, 2 GiB, 2147483648 bytes
+
+in the card with all the other verbose details of a disk.
+
 ### Patternfly
 
 Cockpit uses Patternfly and generally follows Patternfly's design
@@ -114,3 +138,22 @@ state where the dialog doesn't make sense anymore should be
 avoided. If necessary, Cockpit should clean up itself and restore the
 state to what it was before the operation was started, or silently
 adjust the operation to skip the parts that have already been done.
+
+### The standard Cockpit Card
+
+[Something about a card with a optional description list at the top
+and a optional table at the bottom, and buttons and a kebab. If your
+object can be presented with that, it's fine to use it.]
+
+[The standard stack/grid of cards? Main card of the stack without border?
+Collapsing cards in the stack?]
+
+### Tables and data lists
+
+[More about tables, data lists, expander rows, putting actions into
+tables.]
+
+[No buttons in table rows, all actions in a kebab.]
+
+[No whole row hovering and clicks, navigate with links in the first
+column.]
