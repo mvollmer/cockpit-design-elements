@@ -5,6 +5,9 @@ Cockpit](hts://cockpit-project.org/ideals.html) and aims to be more
 concrete. And doesn't need to be as polished. Maybe some of the items
 below can be added to the ideals.
 
+This document is not about workflows or processes or tools like
+Github, Figma, or Penpot.
+
 ### No hiding of technology, no draining the swamp
 
 Cockpit provides access to the technologies available in a Linux
@@ -49,3 +52,13 @@ command line.
 
 Cockpit makes it obvious when the user is leaving the "beaten path" by
 keeping the non-guided parts separate, somehow.
+
+### Patternfly
+
+Cockpit uses Patternfly and generally follows Patternfly's design
+guidelines.
+
+For example, dialogs use the Modal component and should follow the
+[design
+guidelines](https://www.patternfly.org/components/modal/design-guidelines)
+for that component.
