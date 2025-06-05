@@ -1,7 +1,7 @@
 ## Elements of Cockpit Design
 
-This document continues the [Ideals of
-Cockpit](hts://cockpit-project.org/ideals.html) and aims to be more
+This document continues the [Ideals
+ofCockpit](https://cockpit-project.org/ideals.html) and aims to be more
 concrete. And doesn't need to be as polished. Maybe some of the items
 below can be added to the ideals.
 
