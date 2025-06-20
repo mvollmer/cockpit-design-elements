@@ -50,6 +50,13 @@ it is much easier to get the task done (and remember how you did it
 for the next time) when you do it in Cockpit rather than on the
 command line.
 
+It is even permissible (but only grudgingly so) to have a text field
+for raw strings that are passed to the underlying technology and
+interpreted there. For example, we have "Encryption options" in
+Storage that are copied verbatim into /etc/crypttab, and the Teams in
+Networking need to be configured with a JSON blob in a text area.
+This is a bad UI, and we feel bad, but...
+
 Cockpit makes it obvious when the user is leaving the "beaten path" by
 keeping the non-guided parts separate, somehow.
 
