@@ -58,7 +58,12 @@ Networking need to be configured with a JSON blob in a text area.
 This is a bad UI, and we feel bad, but...
 
 Cockpit makes it obvious when the user is leaving the "beaten path" by
-keeping the non-guided parts separate, somehow.
+keeping the non-guided parts separate, somehow.  [This needs to be
+elaborated. Some dialogs have a "Advanced options" expander, but that
+might not be enough when some of those options are real footguns, and
+not just merely non-obviuous.  Maybe we should also have a standard
+"hazard area" that is delimited with a yellow and black striped tape
+like a real construction site.]
 
 ### SI vs IEC Unit prefixes
 
@@ -126,6 +131,11 @@ gives immediate feedback when correcting errors. It is also consistent
 with dialogs that are prefilled and ready to be submitted immediately
 after opening, something that the Patternfly guidelines overlook.)
 
+[A dialog with multiple actions might have different validation rules
+for each of the actions. For example "Format and mount" needs a
+non-empty mount point, but "Format only" is happy with an empty
+one. This needs to be thought through.]
+
 Submitting the dialog successfully starts the action, disables the
 submit button, and puts a spinner in it. Progress messages can be
 shown next to the submit and cancel buttons.
@@ -146,14 +156,28 @@ avoided. If necessary, Cockpit should clean up itself and restore the
 state to what it was before the operation was started, or silently
 adjust the operation to skip the parts that have already been done.
 
+### The standard Cockpit Page
+
+[Something about the top-level of a Cockpit page. It's a Patternfly
+Page but without any of the masthead and sidebar stuff, since that is
+all already handled by the Shell. We probably should have a
+CockpitPage component that abstracts away the correct use of the
+Patternfly Page component, and also imports all the necessary CSS
+overrides and additions that Cockpit needs. Maybe also include a
+WithDialogs in that? Inside the CockpitPage, you can have your
+standard PageSections.]
+
+[Also something about PageSections, and whether or not to use plain
+Cards for stuff, and how to get scrolling right when some parts of
+your page should stay in place. Maybe have "header" and "footer" props
+on CockpitPage to implement those things. Or CockpitHeader and
+CockpitFooter with "sticky" props?]
+
 ### The standard Cockpit Card
 
 [Something about a card with a optional description list at the top
 and a optional table at the bottom, and buttons and a kebab. If your
 object can be presented with that, it's fine to use it.]
-
-[The standard stack/grid of cards? Main card of the stack without border?
-Collapsing cards in the stack?]
 
 ### Tables and data lists
 
