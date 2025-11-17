@@ -94,6 +94,23 @@ in the card with all the other verbose details of a disk.
 Cockpit uses Patternfly and generally follows Patternfly's design
 guidelines.
 
+Sometimes we fix (what we consider to be) bugs in PatternFly by adding
+CSS to the PatternFly classes. This CSS is centralized in
+`pkg/lib/patternfly`. For example, we think that it is a bug that
+plain cards have round corners, and we fix that bug globally in
+Cockpit.
+
+But application code should not change the CSS of PatternFly
+components just for their own purposes. For example, don't construct
+what looks like a standard PatternFly page out of `Page`,
+`PageSection`, and `Card` components in JavaScript, and then change
+its layout completely by adding `display: grid` to it.
+
+If there is no PatternFly component to achieve what you need,
+implement a new component from scratch. The implementation should use
+PatternFly classes and CSS variables to integrate with Patternfly
+components, of course.
+
 ### Dialogs
 
 Dialogs use a
