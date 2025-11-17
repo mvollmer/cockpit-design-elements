@@ -111,6 +111,41 @@ implement a new component from scratch. The implementation should use
 PatternFly classes and CSS variables to integrate with Patternfly
 components, of course.
 
+### The standard Cockpit Page
+
+Cockpit is unlike the typical PatternFly application in that it has
+the body of a page in an iframe. In other words, the masthead and
+sidebar of a standard PatternFly page are in the top-level document
+(as normal), but the page sections are inside a nested iframe.
+
+Thus, a standard Cockpit page body needs to do something special to
+integrate nicely into its parent iframe. This is encapsulated into the
+`CockpitPage` component, which should be the top-level component in
+every application.  Inside a `CockpitPage`, you can have PatternFly
+`PageBreadcrumb`, `PageSection`, and `PageGroup` components as
+normal. Or do your own custom thing.
+
+```
+import { CockpitPage } from 'cockpit/elements'
+
+export const App = () => {
+   ...
+   return (
+       <CockpitPage>
+           <PageSection>
+               header
+           </PageSection>
+           <PageSection isFilled hasOverflowScroll>
+               body
+           </PageSection>
+           <PageSection>
+               footer
+           </PageSection>
+       </CockpitPage>
+   );
+};
+```
+
 ### Dialogs
 
 Dialogs use a
@@ -172,41 +207,6 @@ state where the dialog doesn't make sense anymore should be
 avoided. If necessary, Cockpit should clean up itself and restore the
 state to what it was before the operation was started, or silently
 adjust the operation to skip the parts that have already been done.
-
-### The standard Cockpit Page
-
-Cockpit is unlike the typical PatternFly application in that it has
-the body of a page in an iframe. In other words, the masthead and
-sidebar of a standard PatternFly page are in the top-level document
-(as normal), but the page sections are inside a nested iframe.
-
-Thus, a standard Cockpit page body needs to do something special to
-integrate nicely into its parent iframe. This is encapsulated into the
-`CockpitPage` component, which should be the top-level component in
-every application.  Inside a `CockpitPage`, you can have PatternFly
-`PageBreadcrumb`, `PageSection`, and `PageGroup` components as
-normal. Or do your own custom thing.
-
-```
-import { CockpitPage } from 'cockpit/elements'
-
-export const App = () => {
-   ...
-   return (
-       <CockpitPage>
-           <PageSection>
-               header
-           </PageSection>
-           <PageSection isFilled hasOverflowScroll>
-               body
-           </PageSection>
-           <PageSection>
-               footer
-           </PageSection>
-       </CockpitPage>
-   );
-};
-```
 
 ### The standard Cockpit Card
 
