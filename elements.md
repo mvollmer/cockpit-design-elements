@@ -175,20 +175,38 @@ adjust the operation to skip the parts that have already been done.
 
 ### The standard Cockpit Page
 
-[Something about the top-level of a Cockpit page. It's a Patternfly
-Page but without any of the masthead and sidebar stuff, since that is
-all already handled by the Shell. We probably should have a
-CockpitPage component that abstracts away the correct use of the
-Patternfly Page component, and also imports all the necessary CSS
-overrides and additions that Cockpit needs. Maybe also include a
-WithDialogs in that? Inside the CockpitPage, you can have your
-standard PageSections.]
+Cockpit is unlike the typical PatternFly application in that it has
+the body of a page in an iframe. In other words, the masthead and
+sidebar of a standard PatternFly page are in the top-level document
+(as normal), but the page sections are inside a nested iframe.
 
-[Also something about PageSections, and whether or not to use plain
-Cards for stuff, and how to get scrolling right when some parts of
-your page should stay in place. Maybe have "header" and "footer" props
-on CockpitPage to implement those things. Or CockpitHeader and
-CockpitFooter with "sticky" props?]
+Thus, a standard Cockpit page body needs to do something special to
+integrate nicely into its parent iframe. This is encapsulated into the
+`CockpitPage` component, which should be the top-level component in
+every application.  Inside a `CockpitPage`, you can have PatternFly
+`PageBreadcrumb`, `PageSection`, and `PageGroup` components as
+normal. Or do your own custom thing.
+
+```
+import { CockpitPage } from 'cockpit/elements'
+
+export const App = () => {
+   ...
+   return (
+       <CockpitPage>
+           <PageSection>
+               header
+           </PageSection>
+           <PageSection isFilled hasOverflowScroll>
+               body
+           </PageSection>
+           <PageSection>
+               footer
+           </PageSection>
+       </CockpitPage>
+   );
+};
+```
 
 ### The standard Cockpit Card
 
