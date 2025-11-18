@@ -222,7 +222,28 @@ after opening, something that the Patternfly guidelines overlook.)
 [A dialog with multiple actions might have different validation rules
 for each of the actions. For example "Format and mount" needs a
 non-empty mount point, but "Format only" is happy with an empty
-one. This needs to be thought through.]
+one. This needs to be thought through.
+
+If all buttons have the same validation functions, they should all get
+enabled and disabled together during online validation, obviously.  If
+they have different functions, ...
+
+One option is to do online validation after clicking on a submit
+button, but only with the validation function for that button, and
+only that one button is disbaled/enabled as appropriate. All other
+submit buttons remain enabled, and clicking on them switches to doing
+validation for them.
+
+Another option is to not do online validation, but just clear all
+validation errors when the user changes the inputs and enable all
+buttons again.
+
+Still another option is to run all validation functions of all actions
+"online" and enable/disable the buttons appropriately.  The validation
+messages in the dialog are the union of all the validation functions.
+Messages should be written so that people get a hint that some actions
+are still available. E.g. "Mount point is needed for mounting. Select
+'Format only' to format without mounting.".]
 
 Submitting the dialog successfully starts the action, disables the
 submit button, and puts a spinner in it. Progress messages can be
