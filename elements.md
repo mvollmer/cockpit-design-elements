@@ -146,6 +146,42 @@ export const App = () => {
 };
 ```
 
+### The standard Cockpit Card
+
+Cockpit presents much of its information in PatternFly Cards like
+these:
+
+![Example of standard cards](./cards.png)
+
+Such a "standard card" has a title at the top, maybe a description
+list under it, and maybe a table at the bottom. It also might have a
+kebab menu and some buttons in the upper right corner.
+
+It should be constructed like this:
+
+```
+<Card>
+  <CardHeader actions={...}>
+    <CardTitle>
+      {_("Title")}
+    </CardTitle>
+  </CardHeader>
+  <CardBody>
+    <DescriptionList className="pf-m-horizontal-on-sm">
+      {...}
+    </DescriptionList>
+  </CardBody>
+  <Table variant="compact">
+  </Table>
+</Card>
+```
+
+Note that the `Table` is not in a `CardBody`.
+
+### Dropdown menus
+
+...
+
 ### Dialogs
 
 Dialogs use a
@@ -207,12 +243,6 @@ state where the dialog doesn't make sense anymore should be
 avoided. If necessary, Cockpit should clean up itself and restore the
 state to what it was before the operation was started, or silently
 adjust the operation to skip the parts that have already been done.
-
-### The standard Cockpit Card
-
-[Something about a card with a optional description list at the top
-and a optional table at the bottom, and buttons and a kebab. If your
-object can be presented with that, it's fine to use it.]
 
 ### Tables and data lists
 
