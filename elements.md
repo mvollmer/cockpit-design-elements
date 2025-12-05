@@ -190,9 +190,6 @@ component inside a
 [Modal](https://www.patternfly.org/components/modal/design-guidelines)
 component and should follow the relevant design guidelines.
 
-Cockpit uses left-aligned labels.  [BUT SHOULD PROBABLY USE
-TOP-ALIGNED ONES!]
-
 Cockpit uses the Switch component only in situations where toggling
 triggers an immediate change to the system, such as when switching
 SELinux on or off.  In a dialog, where the change to the system
@@ -202,6 +199,57 @@ also to toggle between two different states.
 When a dialog initially opens, the submit button is enabled and no
 input field validation is done while the user is filling out the
 dialog.
+
+A dialog should keep the user out of "dead end" situations. If a
+certain choice will unconditionally lead to a dialog that can't be
+submitted, that choice should be disabled or hidden. If the user would
+go "d'oh, you could have told me earlier that this wont work", then
+something is in this category.
+
+A choice should be disabled when the user expects it to be there and
+would be confused when it is missing. The user might expect it to be
+there because they have used it in the past, because they have heard
+about it, or because it is part of the general feature set of the
+technology and they expect to learn about it from the Cockpit UI.
+
+This is often true for things that would be flags like "--verbose" or
+"--force" on the command line, for example, or choices like "raid5" vs
+"raid6".  There usually is a static and explicit list of the choices
+in the code.  We should generally use radio buttons (or checkboxes)
+for these.
+
+A choice should be hidden when the user would be surprised to see it
+offered and say "well, that wasn't helpful to include it in the
+list". This is often true for objects that are not relevant in the
+given context for obvious reasons. For example, when adding a disk to
+a virtual machine that should be backed by a existing file, we don't
+need to show all the family pictures as choices, or files that are
+already used as disks for the same machine.  There usually isn't a
+explicit list in the code for these; instead the choices are
+dynamically retrieved from some API. We should generally use dropdown
+selectors for these.
+
+When all choices for a given dialog value become disabled or hidden
+(or when the value doesn't have any choices to begin with), we need to
+move one level up and disable (or hide) the choice that makes this
+value part of the dialog. For example, if a storage pool has no
+relevant volumes, the pool itself should be hidden.
+
+If no choices remain such that the whole dialog is a dead-end, we show
+an error dialog instead with just a "Close" button.  The error dialog
+should explain what could be done to get out of this dead-end.  It's
+of course better to avoid a full dead-end by offering the user a path
+out.
+
+For example, instead of disabling the choice of adding a interface for
+a virtual network when there are no virtual networks, it is better to
+let the user re-create the "default" virtual network as part of adding
+an interface.
+
+Text inputs should not "smart" about which values are valid and should
+not silently ignore invalid letters, for example. Let the user type
+whatever they want and then point out what is wrong during input
+validation.
 
 Once the submit button is clicked for the first time, input fields are
 validated and if there are errors, the submit button is disabled and
@@ -218,32 +266,6 @@ dialog opens in a state that is not ready for submission, but also
 gives immediate feedback when correcting errors. It is also consistent
 with dialogs that are prefilled and ready to be submitted immediately
 after opening, something that the Patternfly guidelines overlook.)
-
-[A dialog with multiple actions might have different validation rules
-for each of the actions. For example "Format and mount" needs a
-non-empty mount point, but "Format only" is happy with an empty
-one. This needs to be thought through.
-
-If all buttons have the same validation functions, they should all get
-enabled and disabled together during online validation, obviously.  If
-they have different functions, ...
-
-One option is to do online validation after clicking on a submit
-button, but only with the validation function for that button, and
-only that one button is disbaled/enabled as appropriate. All other
-submit buttons remain enabled, and clicking on them switches to doing
-validation for them.
-
-Another option is to not do online validation, but just clear all
-validation errors when the user changes the inputs and enable all
-buttons again.
-
-Still another option is to run all validation functions of all actions
-"online" and enable/disable the buttons appropriately.  The validation
-messages in the dialog are the union of all the validation functions.
-Messages should be written so that people get a hint that some actions
-are still available. E.g. "Mount point is needed for mounting. Select
-'Format only' to format without mounting.".]
 
 Submitting the dialog successfully starts the action, disables the
 submit button, and puts a spinner in it. Progress messages can be
