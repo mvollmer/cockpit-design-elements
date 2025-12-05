@@ -190,9 +190,6 @@ component inside a
 [Modal](https://www.patternfly.org/components/modal/design-guidelines)
 component and should follow the relevant design guidelines.
 
-Cockpit uses left-aligned labels.  [BUT SHOULD PROBABLY USE
-TOP-ALIGNED ONES!]
-
 Cockpit uses the Switch component only in situations where toggling
 triggers an immediate change to the system, such as when switching
 SELinux on or off.  In a dialog, where the change to the system
@@ -202,6 +199,51 @@ also to toggle between two different states.
 When a dialog initially opens, the submit button is enabled and no
 input field validation is done while the user is filling out the
 dialog.
+
+When letting the user choose from a list of options (such as with
+radio buttons, or a dropdown select), choices that lead to dead-ends
+should be disabled or not be included at all (instead of letting the
+user select them and then unconditionally failing the input
+validation).
+
+A choice should be disabled when the user expects it to be there and
+would be confused when it is missing. The user might expect it to be
+there because they have used it in the past, because they have heard
+about it, or because it is part of the general feature set of the
+technology and they expect to learn about them from the Cockpit
+UI.
+
+This is true for things that would be flags like "--verbose" or
+"--force" on the command line, or choices like "raid5" vs "raid6".
+There usually is a static and explicit list of the choices in the
+code.  We should generally use radio buttons (or checkboxes) for
+these.
+
+A choice should be hidden when the user would be surprised to see it
+offered and say "well, that wasn't helpful to include it in the
+list". This is true for objects that are not relevant in the given
+context for obvious reasons. For example, when adding a disk to a
+virtual machine that should be backed by a existing file, we don't
+need to show all the family pictures as choices, or files that are
+already used as disks for the same machine.  There usually isn't a
+explicit list in the code for these; instead the choices are
+dynamically retrieved from some API. We should generally use dropdown
+selectors for these.
+
+When all choices for a given dialog value become disabled or hidden
+(or when the value doesn't have any choices to begin with), we need to
+move one level up and disable (or hide) the choice that makes this
+value part of the dialog. For example, if a storage pool has no
+relevant volumes, the pool itself should be hidden.
+
+If no choices remain such that the whole dialog is a dead-end, we show
+an error dialog instead with just a "Close" button.  The error dialog
+should explain what could be done to get out of this dead-end.
+
+For example, instead of disabling the choice of adding a interface for
+a virtual network when there are no virtual networks, it is better to
+let the user create the "default" virtual network as part of adding a
+interface.
 
 Once the submit button is clicked for the first time, input fields are
 validated and if there are errors, the submit button is disabled and
