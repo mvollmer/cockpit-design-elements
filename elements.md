@@ -178,9 +178,32 @@ It should be constructed like this:
 
 Note that the `Table` is not in a `CardBody`.
 
+### Tables
+
+Cockpit uses a lot of tables. It's fine.
+
+Table rows themselves should not react to clicks, and should not react
+to being hovered over.
+
+Tables should have rather few columns. If more information needs to be
+shown, it should be either in an expander section, or the row should
+have a link in its first column to a dedicated page for the object
+represented by the row.
+
+When showing more information in an expander section, this can be done
+with a description list in `isAutoFit` mode.
+
+Table rows should have no buttons in them, but can have a kebab menu
+in the last column.
+
+### Description lists with actions
+
+[something about adding "edit" things to description list entries.]
+
 ### Dropdown menus
 
-...
+[something about placement and making them work on small screens,
+scrolling, FormSelect vs SimpleSelect, ...]
 
 ### Dialogs
 
@@ -286,13 +309,3 @@ state where the dialog doesn't make sense anymore should be
 avoided. If necessary, Cockpit should clean up itself and restore the
 state to what it was before the operation was started, or silently
 adjust the operation to skip the parts that have already been done.
-
-### Tables and data lists
-
-[More about tables, data lists, expander rows, putting actions into
-tables.]
-
-[No buttons in table rows, all actions in a kebab.]
-
-[No whole row hovering and clicks, navigate with links in the first
-column.]
