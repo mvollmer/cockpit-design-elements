@@ -226,8 +226,8 @@ dialog.
 A dialog should keep the user out of "dead end" situations. If a
 certain choice will unconditionally lead to a dialog that can't be
 submitted, that choice should be disabled or hidden. If the user would
-go "d'oh, you could have told me earlier that this wont work", then
-something is in this category.
+go "D'oh, you could have told me earlier that this wont work, you had
+all the information!", then something is in this category.
 
 A choice should be disabled when the user expects it to be there and
 would be confused when it is missing. The user might expect it to be
@@ -293,9 +293,6 @@ after opening, something that the Patternfly guidelines overlook.)
 Submitting the dialog successfully starts the action, disables the
 submit button, and puts a spinner in it. Progress messages can be
 shown next to the submit and cancel buttons.
-
-While the opration is ongoing, all input fields are disabled as well.
-[good idea?]
 
 The cancel button now has the job of cancelling the ongoing operation
 and should be disabled if that is not implemented or possible.  When
