@@ -65,6 +65,35 @@ not just merely non-obviuous.  Maybe we should also have a standard
 "hazard area" that is delimited with a yellow and black striped tape
 like a real construction site.]
 
+### Run-time configuration vs Persistent configuration
+
+Many things in Linux are configured via some configuration
+files. During boot there is some process that applies the
+configuration to the system so that the kernel run-time config matches
+what the configuration files specify.
+
+For example, the file /etc/fstab says which filesystems should be
+mounted where, and the boot process makes that happen somehow.
+NetworkManager has connection settings stored in some files, and
+applies them to the kernel networking devices on startup.
+
+The Cockpit UI makes no big distinction between these two: it assumes
+that the run-time configuration matches the file configuration, and
+that they are one and the same.  Mounting a filesystem in Cockpit
+changes /etc/fstab and mounts it at the same time (if the fstab entry
+specifies that it should be mounted). Cockpit will not let the user
+willfully create a situation where the two are inconsistent.  Cockpit
+will not let the user unmount a filesystem without recording in
+/etc/fstab that it should not be mounted on the next boot.
+
+If the run-time configuration and the file configuration are
+inconsistent, then Cockpit treats this a abnormal and a
+problem. Cockpit might warn about it and offer to correct it.  If the
+user, on the command line, mounts a filesystem somewhere else than
+what it is recorded in /etc/fstab, Cockpit will complain about it.  If
+changes are made to the definition of a VM while the VM is running,
+Cockpit will call that out and urge the user to restart the VM.
+
 ### SI vs IEC Unit prefixes
 
 Cockpit uses the "human" SI unit prefixes "k", "M", "G", ... in
